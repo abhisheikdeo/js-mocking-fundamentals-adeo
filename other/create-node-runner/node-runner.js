@@ -1,8 +1,8 @@
-const Worker = require('jest-worker').default
+const Worker = require('jest-worker')
 const {fail, pass} = require('create-jest-runner')
 
 module.exports = async ({testPath}) => {
-  const worker = new Worker(require.resolve('./require-module'))
+  const worker = new Worker.Worker(require.resolve('./require-module'))
   worker.getStdout().pipe(process.stdout)
   worker.getStderr().pipe(process.stderr)
   process.stdout.write('\n')

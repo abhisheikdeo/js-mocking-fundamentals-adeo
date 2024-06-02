@@ -14,7 +14,16 @@ function fn(impl = () => {}) {
     return impl(...args)
   }
   mockFn.mock = {calls: []}
+  mockFn.mockImplementation = newImpl => (impl = newImpl)
   return mockFn
+}
+
+function spyOn(object, property) {
+  const originalValue = object[property]
+  object[property] = fn()
+  object[property].mockRestore = () => {
+    object[property] = originalValue
+  }
 }
 
 spyOn(utils, 'getWinner')
